@@ -18,5 +18,8 @@ public class SampleController {
 	public void getSample(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		/* System.out.println("getSample"); */
 		logger.info("---------- Normal running getSample ----------");
+
+		//PrintWriter out = response.getWriter();
+		//out.println("<h1>Hello From Servlet</h1>");
 	}
 }

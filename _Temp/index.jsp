@@ -7,5 +7,6 @@
 </head>
 <body>
 	<h1>Index Page</h1>
+	<h2>.( ${serverTime} ).</h2>
 </body>
 </html>
