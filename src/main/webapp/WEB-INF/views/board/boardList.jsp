@@ -9,19 +9,38 @@
 <link rel="stylesheet" type="text/css" href="/css/common/common.css" />
 
 <!--  공통 javascript -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="/js/common/jqeury.js"></script>
+<script src="/js/common/jquery.js"></script>
 <script>
-	$.ajax({
-		type: "GET",
-		url: "/board/getBoardList",
-		dataType: "JSON",
-		success: function(obj) {
-			getBoardListCallback(obj);
-		},
-		error: function(xhr, status, error) {}
-	});
+	$(document).ready(function() {
+		getBoardList();
+	})
 	
+	/** 게시판 - 상세 페이지 이동 */
+	function goBoardDetail(boardSeq) {
+		location.href = "/board/boardDetail?boardSeq=" + boardSeq;
+	}
+	
+	/** 게시판 - 작성 페이지이동 */
+	function goBoardWrite(currentPageNo) {
+		location.href = "/board/boardWrite";
+	}
+	
+	/** 게시판 - 목록 조회 */
+	function getBoardList() {
+		$.ajax({
+			url: "/board/getBoardList",
+			data: $("#boardForm").serialize(),
+			dataType: "JSON",
+			cace : false,
+			type: "POST",
+			success: function(obj) {
+				getBoardListCallback(obj);
+			},
+			error: function(xhr, status, error) {}
+		});
+	}
+	
+	/** 게시판 - 목록 조회 콜백 함수 */
 	function getBoardListCallback(obj) {
 		var list = obj;
 		var listLen = obj.length;
@@ -48,10 +67,11 @@
 				var updDate = list[i].upd_date;
 
 				str += "<tr>";
-                str += "<td>"+ boardSeq +"</td>";
+                str += "<td><a href='/board/boardDetail?boardSeq=" + boardSeq + "'>"+ boardSeq +"</a></td>";
                 str += "<td>"+ boardSubject +"</td>";
                 str += "<td>"+ boardHits +"</td>";
                 str += "<td>"+ boardWriter +"</td>";                
+                str += "<td>"+ insDate +"</td>";                
                 str += "</tr>";
 			}
 		} else {
@@ -60,24 +80,56 @@
 			str += "</tr>";
 		}
 		
+		$("#total_count").html(listLen);
 		$("#tbody").html(str);
 	}
 </script>
 
 </head>
+
 <body>
-<table border="1" width="350">
-	<thead>
-		<tr>
-			<td>글번호</td>
-			<td>제목</td>
-			<td>조회수</td>
-			<td>작성자</td>
-		</tr>
-	</thead>
-	<tbody id="tbody">
+<div id="wrap">
+	<div id="container">
+		<div class="inner">
+			<h2>게시글 목록</h2>
+			<form id="boardForm" name="boardForm">
+				<input type="hidden" id="function_name" name="function_name" value="getBoardList" />
+				<input type="hidden" id="current_page_no" name="current_page_no" value="1" />
+				<div class="page_info">
+					<span class="total_count"><strong>전체</strong> : <span id="total_count" class="t_red">0</span> 개</span>
+				</div>
+				
+				<table width="100%" class="table01">
+					<colgroup>
+						<col width="10%" />
+						<col width="25%" />
+						<col width="10%" />
+						<col width="15%" />
+						<col width="20%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>글번호</th>
+							<th>제목</th>
+							<th>조회수</th>
+							<th>작성자</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					
+					<tbody id="tbody">
+					</tbody>
+				</table>
+			</form>
+			
+			<div class="btn_right mt15">
+				<button type="button" class="btn black mr5" onclick="javascript:goBoardWrite();">작성하기</button>
+			</div>
+		</div>
+	</div>
 	
-	</tbody>
-</table>
+	<div id="pagination"></div>
+</div>
+
 </body>
 </html>

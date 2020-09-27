@@ -22,7 +22,7 @@ public class BoardDao {
 		return sqlSession.selectList(NAMESPACE + ".getBoardList");
 	}
 
-	/** 게시판 - 조회 수정 */
+	/** 게시판 - 조회 수(hits) 수정 */
 	public int updateBoardHits(BoardForm boardForm) throws Exception {
 		return sqlSession.update(NAMESPACE + ".updateBoardHits", boardForm);
 	}

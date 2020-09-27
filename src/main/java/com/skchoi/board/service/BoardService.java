@@ -11,6 +11,9 @@ import com.skchoi.board.form.BoardForm;
 
 @Service
 public class BoardService {
+
+	//protected final Logger logger = LoggerFactory.getLogger(BoardService.class);
+
 	@Autowired
 	private BoardDao boardDao;
 
@@ -46,6 +49,8 @@ public class BoardService {
 		return boardDto;
 	}
 
+	/** 게시판 - 첨부파일 정보 조회 */
+
 	/** 게시판 - 삭제 */
 	public BoardDto deleteBoard(BoardForm boardForm) throws Exception {
 		BoardDto boardDto = new BoardDto();
@@ -69,4 +74,8 @@ public class BoardService {
 		}
 		return boardDto;
 	}
+
+	/** 게시판 - 답글 등록 */
+
+	/** UITL : 32글자 랜덤 문자열 생성 */
 }
