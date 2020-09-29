@@ -13,6 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	protected final Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
