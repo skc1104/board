@@ -16,8 +16,9 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/img/**" location="/img/" />
+	<resources mapping="/js/**" location="/js/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -25,15 +26,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.skchoi.board" />
-	
+	<context:component-scan base-package="com.skchoi.board" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<beans:bean id="loggerInterceptor" class="com.skchoi.board.common.LoggerInterceptor"></beans:bean>
-		</mvc:interceptor>
+		</mvc:interceptor>	
 	</mvc:interceptors>
-	
+		
 	<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 	
 </beans:beans>

@@ -9,7 +9,7 @@ import com.skchoi.board.dao.BoardDao;
 import com.skchoi.board.dto.BoardDto;
 import com.skchoi.board.form.BoardForm;
 
-@Service
+@Service()
 public class BoardService {
 
 	//protected final Logger logger = LoggerFactory.getLogger(BoardService.class);
@@ -40,7 +40,12 @@ public class BoardService {
 	/** 게시판 - 등록 */
 	public BoardDto insertBoard(BoardForm boardForm) throws Exception {
 		BoardDto boardDto = new BoardDto();
-		int insertCnt = boardDao.insertBoard(boardForm);
+		int insertCnt = 0;
+
+		insertCnt = boardDao.insertBoard(boardForm);
+
+		insertCnt = boardDao.insertBoardFail(boardForm);
+
 		if(insertCnt > 0) {
 			boardDto.setResult("SUCCESS");
 		} else {

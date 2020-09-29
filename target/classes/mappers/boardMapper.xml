@@ -46,7 +46,7 @@
 		WHERE BOARD_SEQ = #{board_seq}
 	</select>
 	
-	<insert id="insertBoard" parameterType="com.skchoi.board.form.BoardForm">
+	<insert id="insertBoardFail" parameterType="com.skchoi.board.form.BoardForm">
 		INSERT INTO board.TB_BOARD
 		(
 			  BOARD_RE_REF
@@ -65,7 +65,7 @@
 			  0
 			, 0
 			, 0
-			, #{board_writer}
+			, #{board_writer1}
 			, #{board_subject}
 			, #{board_content}
 			, 'NOMEMBER'

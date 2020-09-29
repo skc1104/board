@@ -20,6 +20,7 @@ public class BoardDao {
 	/** 게시판 - 목록조회 */
 	public List<BoardDto> getBoardList(BoardForm boardForm) throws Exception {
 		return sqlSession.selectList(NAMESPACE + ".getBoardList");
+		//return sqlSession.selectList(NAMESPACE + ".getBoardList", boardForm);
 	}
 
 	/** 게시판 - 조회 수(hits) 수정 */
@@ -27,7 +28,7 @@ public class BoardDao {
 		return sqlSession.update(NAMESPACE + ".updateBoardHits", boardForm);
 	}
 
-	/** 게시ㄴ - 상세 조회 */
+	/** 게시판 - 상세 조회 */
 	public BoardDto getBoardDetail(BoardForm boardForm) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".getBoardDetail", boardForm);
 	}
@@ -35,6 +36,11 @@ public class BoardDao {
 	/** 게시판 - 등록 */
 	public int insertBoard(BoardForm boardForm) throws Exception {
 		return sqlSession.insert(NAMESPACE + ".insertBoard", boardForm);
+	}
+
+	/** 게시판 - 등록 실패 (트랜잭션 테스트) */
+	public int insertBoardFail(BoardForm boardForm) throws Exception {
+		return sqlSession.insert(NAMESPACE + ".insertBoardFail", boardForm);
 	}
 
 	/** 게시판 - 삭제 */
