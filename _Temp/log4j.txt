@@ -1,1 +1,0 @@
-src/test/resources 폴더에 있던 log4j.xml 을 삭제함 (이곳에 백업해 둠)
